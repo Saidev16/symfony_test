@@ -16,12 +16,13 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 use Symfony\Component\Form\Extension\Core\Type\FormType;
+use FormBundle\Form\DocumentsType;
 
 
 class PostController extends Controller
 {
     /**
-     * @Route("/post/create")
+     * @Route("/")
      */
 
     public function createAction(Request $request){
@@ -34,37 +35,69 @@ class PostController extends Controller
         $formPost = $this->get('form.factory')->createBuilder(FormType::class, $post)
                         ->add('Nom', TextType::class)
                         ->add('Prenom', TextType::class)
-                        ->add('Date_naissance', DateType::class)
+                        ->add('Date_naissance', DateType::class,[
+                            'years' => range(1940, date('Y')+20)
+                        ])
                         ->add('Email', EmailType::class)
                         ->add('telephone', NumberType::class)
                         ->add('Voyage_theme', TextType::class)
+                        ->add('documents', DocumentsType::class)
                         ->add('enregistrer', SubmitType::class );
 
         $form = $formPost->getForm();
-        return $this->render('FormBundle:Post:create.html.twig', ['formulaire'=>$form->createView()]);
-        
+        // 
         
 
         if($request->isMethod('POST')){
+
             $form->handleRequest($request);
+
+            $file = $post->getDocuments()->getBudgetExcel();
+            $fileName =  $file->getClientOriginalName().'.'.$file->guessExtension();           
+            $file->move($this->getParameter('upload_directory'). '/posts' ,$fileName);
+            $post->getDocuments()->getBudgetExcel($fileName);
+
+            $file = $post->getDocuments()->getMotivationsDocx();
+            $fileName =  $file->getClientOriginalName().'.'.$file->guessExtension();           
+            $file->move($this->getParameter('upload_directory'). '/posts' ,$fileName);
+            $post->getDocuments()->getBudgetExcel($fileName);
+
+            // $document = new Documents();
+
+                    
+            // $post->setDocuments($document);
+            $em->persist($post);
+
+
+            $em->flush();   
+            $request->getSession()->getFlashBag()->add('success','Votre inscription a été bien enregistré ');
             
-                // Objet Documents
+            // echo "<pre>", print_r($request),"</pre>";
+            // return $this->render('FormBundle:Post:index.html.twig', ['request'=>$request]);
+        }
+        
+        
+
+        // if($request->isMethod('POST')){
+        //     $form->handleRequest($request);
+            
+        //         // Objet Documents
                 
                     
-        $document = new Documents();
-        $document->setBudgetExcel('www.excel1.com');
-        $document->setMotivationsDocx('www.motivation.com');
-        $document->setInstagramUrl('www.instagram.com');
+        // $document = new Documents();
+        // $document->setBudgetExcel('www.excel1.com');
+        // $document->setMotivationsDocx('www.motivation.com');
+        // $document->setInstagramUrl('www.instagram.com');
 
                 
-        $post->setDocuments($document);
-        $em->persist($post);
+        // $post->setDocuments($document);
+        // $em->persist($post);
 
 
-        $em->flush();    
-        }
+        // $em->flush();    
+        // }
 
-   
+        return $this->render('FormBundle:Post:create2.html.twig', ['formulaire'=>$form->createView()]);
                 
         
     }
@@ -79,11 +112,6 @@ class PostController extends Controller
             'titre' => 'Page index', 
             'post' => "Lorem ipsum dolor sit amet consectetur"
         ]);
-        return $this->appel();
     }
-
-    public function appel(){
-        return new Response('je suis dans la method appel');
-    }    
 
 }

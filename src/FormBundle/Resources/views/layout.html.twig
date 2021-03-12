@@ -6,6 +6,8 @@
     <title>Planete+ - 30ans</title>
     {% block stylesheets %}
         <link rel="stylesheet" href="{{asset('style.css')}}">
+        <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
+
     {% endblock %}
 </head>
 <body>
@@ -38,8 +40,11 @@
 
         <div class="copyright">© CANAL 2018</div>
     </div>
+
     {% block javascripts %}
         <script src="{{asset('bundle.js')}}"></script>
+        <script src="{{asset('js/bootstrap.min.js')}}"></script>
+
     {% endblock %}
 </body>
 

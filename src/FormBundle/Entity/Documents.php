@@ -4,6 +4,8 @@ namespace FormBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * Documents
  *
@@ -23,7 +25,8 @@ class Documents
 
     /**
      * @var string
-     *
+     *@Assert\NotBlank()
+     *@Assert\File(mimeTypes={ "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" }, mimeTypesMessage="Le mime type que vous voulez monté est invalide {{ type }} , voici les mime types autorisés {{ types }}", maxSize="3M" )
      * @ORM\Column(name="budget_excel", type="string", length=255)
      */
     private $budgetExcel;
@@ -31,6 +34,9 @@ class Documents
     /**
      * @var string
      *
+     *@Assert\NotBlank()
+     *@Assert\File(mimeTypes={ "application/vnd.openxmlformats-officedocument.wordprocessingml.document"},mimeTypesMessage="Le mime type que vous voulez monté est invalide {{ type }} , voici les mime types autorisés {{ types }}", maxSize="3M" )
+     * 
      * @ORM\Column(name="motivations_docx", type="string", length=255)
      */
     private $motivationsDocx;

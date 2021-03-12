@@ -3,6 +3,8 @@
 namespace FormBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * Applicant
@@ -40,6 +42,7 @@ class Applicant
      * Undocumented variable
      *
      * @ORM\OneToOne(targetEntity="FormBundle\Entity\Documents", cascade={"persist"})
+     * @Assert\Valid()
      */
     private $documents;
 

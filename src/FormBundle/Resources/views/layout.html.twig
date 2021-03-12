@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planete+ - 30ans</title>
+    {% block stylesheets %}
+        <link rel="stylesheet" href="{{asset('style.css')}}">
+    {% endblock %}
+</head>
+<body>
+    <div class="BarHead">
+        <div class="Logo_mycanal"></div>
+    </div>
+    
+
+    {% block content %} {% endblock %}
+
+    <!-- FOOTER-->
+    <div class="Footer">
+        <a href="" target="_blanks"><div class="Logo_planetplus"></div></a>
+
+        <div class="links">
+            <a href="" target="_blanks">Mentions Légales</a>
+            <a href="" target="_blanks">Règlement du jeu</a>
+            <a href="" target="_blanks">Crédits</a>
+        </div>
+
+        <div class="links">
+            <a href="" target="_blanks">Restez connectés</a>
+            <div class="socials">
+                <a href="https://www.facebook.com/planeteplusfrance" class="social social-fb" target="_blank"></a>
+                <a href="https://twitter.com/PlanetePlus" class="social social-tw" target="_blank"></a>
+                <a href="https://www.dailymotion.com/planeteplus" class="social social-d" target="_blank"></a>
+                <a href="https://www.youtube.com/user/planeteplusfrance" class="social social-youtube" target="_blank"></a>
+            </div>
+        </div>
+
+        <div class="copyright">© CANAL 2018</div>
+    </div>
+    {% block javascripts %}
+        <script src="{{asset('bundle.js')}}"></script>
+    {% endblock %}
+</body>
+
+</html>

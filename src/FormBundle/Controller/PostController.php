@@ -62,41 +62,18 @@ class PostController extends Controller
             $file->move($this->getParameter('upload_directory'). '/posts' ,$fileName);
             $post->getDocuments()->getBudgetExcel($fileName);
 
-            // $document = new Documents();
 
-                    
-            // $post->setDocuments($document);
             $em->persist($post);
 
 
             $em->flush();   
             $request->getSession()->getFlashBag()->add('success','Votre inscription a été bien enregistré ');
             
-            // echo "<pre>", print_r($request),"</pre>";
-            // return $this->render('FormBundle:Post:index.html.twig', ['request'=>$request]);
         }
         
         
 
-        // if($request->isMethod('POST')){
-        //     $form->handleRequest($request);
-            
-        //         // Objet Documents
-                
-                    
-        // $document = new Documents();
-        // $document->setBudgetExcel('www.excel1.com');
-        // $document->setMotivationsDocx('www.motivation.com');
-        // $document->setInstagramUrl('www.instagram.com');
-
-                
-        // $post->setDocuments($document);
-        // $em->persist($post);
-
-
-        // $em->flush();    
-        // }
-
+    
         return $this->render('FormBundle:Post:create2.html.twig', ['formulaire'=>$form->createView()]);
                 
         
@@ -111,6 +88,7 @@ class PostController extends Controller
         return $this->render('FormBundle:Post:index.html.twig', [
             'titre' => 'Page index', 
             'post' => "Lorem ipsum dolor sit amet consectetur"
+        
         ]);
     }
 
